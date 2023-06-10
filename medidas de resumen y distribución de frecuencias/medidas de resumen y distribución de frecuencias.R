@@ -51,3 +51,18 @@ tablaf %>%
   flextable() %>% 
   autofit () %>% 
   save_as_docx(path = "tabla de frecuencias.docx")
+
+# Calcular estadísticas descriptivas para edad por categoría de sexo
+
+resumen <- centro %>%
+  group_by(sexo) %>%
+  summarise(Media = mean(edad),
+            Mediana = median(edad),
+            Desviación = sd(edad),
+            Minimo = min(edad),
+            Maximo = max(edad),
+            IQR = IQR(edad))
+resumen %>% 
+  flextable() %>% 
+  autofit () %>% 
+  save_as_docx(path = "res_med_descriptivas.docx")
