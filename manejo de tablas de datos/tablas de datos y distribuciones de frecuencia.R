@@ -16,26 +16,26 @@ centro<-read_excel("centrosalud.xlsx")
 head(centro)
 introduce(centro)
 
-# Resumen gráfico porcentual de variables y datos perdidos
+# Resumen gráfico porcentual de variables y datos perdidos -----
 plot_intro(centro)
 
-# Resumen porcentual de datos perdidos
+# Resumen porcentual de datos perdidos ------
 plot_missing(centro)
 
-# Histograma de variables cuantitativas
+# Histograma de variables cuantitativas ------
 plot_histogram(centro)
 
-# Diagramas de caja para variables cuantitativas
+# Diagramas de caja para variables cuantitativas ------
 data_box1<-centro[c("sexo","edad")]
 plot_boxplot(data_box1, by="sexo")
 
-# Resumen para edad 
+# Resumen para edad ------
 
 numSummary(centro[,c("edad"), drop=FALSE]
            , groups=centro$tabaco
            , statistics=c("mean", "sd", "IQR", "skewness"))
 
-# Resumen simple de variables
+# Resumen simple de variables ------
 
 c1<-centro %>% 
   select(tabaco, pad) %>% 
@@ -56,7 +56,7 @@ c3<-centro %>%
   filter(laboro=="jubilado")
 c3
 
-# Calcular nuevamente el IMC como imc1
+# Calcular nuevamente el IMC como imc1 ------
 c4<-centro %>% 
   mutate(centro, imc1=peso/(talla/100)^2) %>% 
   select(edad:imc, imc1)
@@ -69,7 +69,7 @@ c5<-centro %>%
   filter(imc1>25)
 c5
 
-# Calcular el imc promedio por laboro y superior a 20
+# Calcular el imc promedio por laboro y superior a 20 -----
 c6<-centro %>% 
   group_by(laboro) %>% 
   summarise(conteo=n(),imc=mean(imc)) %>% 
