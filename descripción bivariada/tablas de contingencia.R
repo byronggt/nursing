@@ -6,6 +6,10 @@ if(!require(flextable)){install.packages("flextable")}
 if(!require(tidyverse)){install.packages("tidyverse")}
 if(!require(dplyr)){install.packages("dplyr")}
 if(!require(rempsyc)){install.packages("rempsyc")}
+if(!require(epiR)){install.packages("epiR")}
+if(!require(epitools)){install.packages("epitools")}
+
+
 
 # Abrir la tabla de datos "centrosalud" -----
 centro<-read_excel("centrosalud.xlsx")
@@ -53,6 +57,28 @@ t1a=with(centro,table(tabaco2,sexo))
 t1a
 chisq.test(t1a) # No se resalta error alguno en la prueba
 
+## Cálculo de odd ratio
+
+odd1<-table(centro$sexo,centro$diabm); odd1
+
+# Calcular las proporciones por columnas 
+# La proporción de mujeres es mayor en los diabéticos
+prop.table(odd1,2)
 
 
+# Chi cuadrado y odds ratio
+# Ho: la diabetes es independiente del sexo
+# Ha: la diabetes no es independiente del sexo
+chisq.test(odd1)
+epi.2by2(odd1)
 
+oddsratio(odd1)
+# Considerar el odd ratio de 0.38. Significa que
+# La probabilidad de que una persona tenga diabetes es del
+# 0.38 cuando es mujer, en comparación si es hombre
+# También: la probabilidad de que una persona no tenga diabetes
+# se reduce en 0.62 cuando es mujer
+
+# El valor de midp.exact de 0.001688 significa que hay significancia
+# en la diferencia de probabilidad de desarrollar diabetes al
+# comparar hombres y mujeres
