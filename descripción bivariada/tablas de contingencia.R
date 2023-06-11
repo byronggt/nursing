@@ -72,7 +72,7 @@ prop.table(odd1,2)
 chisq.test(odd1)
 epi.2by2(odd1)
 
-oddsratio(odd1)
+oddsratio(odd1) # Revisar la interpretación
 # Considerar el odd ratio de 0.38. Significa que
 # La probabilidad de que una persona tenga diabetes es del
 # 0.38 cuando es mujer, en comparación si es hombre
