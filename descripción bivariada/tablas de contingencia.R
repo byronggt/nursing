@@ -44,6 +44,13 @@ chisq.test(t1)
 
 # Calcular las frecuencias esperadas bajo la hipótesis nula
 chisq.test(t1)$expected
+# Si las frecuencias esperadas son menor a 5 es necesario
+# fusionar categorías, como se muestra enseguida
+t1
+centro$tabaco2<-ifelse((centro$tabaco=="ex fumador 10 años+")|(centro$tabaco=="ex fumador 9 años-"),"ex fumador", as.character(centro$tabaco))
+t1a=with(centro,table(tabaco2,sexo))
+t1a
+chisq.test(t1a) # No se resalta error alguno en la prueba
 
 
 
