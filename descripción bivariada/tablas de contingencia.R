@@ -5,6 +5,7 @@ if(!require(readxl)){install.packages("readxl")}
 if(!require(flextable)){install.packages("flextable")}
 if(!require(tidyverse)){install.packages("tidyverse")}
 if(!require(dplyr)){install.packages("dplyr")}
+if(!require(rempsyc)){install.packages("rempsyc")}
 
 # Abrir la tabla de datos "centrosalud" -----
 centro<-read_excel("centrosalud.xlsx")
@@ -51,7 +52,6 @@ centro$tabaco2<-ifelse((centro$tabaco=="ex fumador 10 años+")|(centro$tabaco=="
 t1a=with(centro,table(tabaco2,sexo))
 t1a
 chisq.test(t1a) # No se resalta error alguno en la prueba
-
 
 
 
