@@ -7,6 +7,11 @@ if(!require(tidyverse)){install.packages("tidyverse")}
 if(!require(dplyr)){install.packages("dplyr")}
 if(!require(DescTools)){install.packages("DescTools")}
 if(!require(samplingbook)){install.packages("samplingbook")}
+if(!require(confintr)){install.packages("confintr")}
+if(!require(car)){install.packages("car")}
+if(!require(EnvStats)){install.packages("EnvStats")}
+if(!require(janitor)){install.packages("janitor")}
+
 
 # Abrir la tabla de datos "centrosalud" -----
 centro<-read_excel("centrosalud.xlsx")
@@ -34,6 +39,44 @@ muestra_definitiva<-rbind(centro[muestra_complemento, ], data_msa)
 
 ic_mean<- MeanCI(x=muestra_definitiva$pas, trim = 0, conf.level = 0.95, na.rm = FALSE);ic_mean
 
+## Intervalos de confianza (IC)
+
+# Intervalo de confianza para la media de 
+# presión arterial en hombres
+mujeres<-subset(centro, sexo=="femenino")
+hombres<-subset(centro, sexo=="masculino")
+shapiro.test(hombres$pas)
+qqPlot(hombres$pas, pch=19, las=1, main="QQplot",
+       xlab="Cuantiles teóricos", ylab="Cuantiles muestrales")
+
+ic_pas_h<-ci_mean(hombres$pas); ic_pas_h
+
+# Intervalo de confianza para la diferencia de medias 
+# entre medias de pas para hombres y mujeres
+
+ci_mean_diff(mujeres$pas, mujeres$pas)
+
+# Intervalo de confianza para la proporción de mujeres
+# con pas > 140
+
+mujeres1<-subset(mujeres, select = c(pas))
+mujeres2<-na.omit(mujeres1)
+mujeres2
+mujeres2 %>%
+  mutate(masde140=ifelse(pas>140,1,0)) %>%
+  tabyl(masde140) %>%
+  adorn_totals("row")
+
+# Calcular el IC para la proporción de pas>140
+
+BinomCI(93, 180,conf.level=0.95)
+
+## Intervalo de confianza para la varianza de pas para mujeres
+ci_var(mujeres$pas)
+
+## Intervalo de confianza para la diferencia
+## de varianzas de pas para hombres y mujeres
+var.test(x=mujeres$pas, y=hombres$pas,conf.level=0.95)$conf.int
 
 #===============Muestreo simple aleatorio con simulación=======================================
 
@@ -54,6 +97,9 @@ for (conf in seq(0.80, 0.95, by = 0.05)){
                               "simulacion" = simulacion,
                               "pacientes_muestra" = n_muestra$n)
       data_muestreo <- rbind(data_muestreo, data_temp)
+      
+      
+      
     }
   }
 }
@@ -66,7 +112,8 @@ data_muestreo_resumen_final <-
             pacientes_muestra = mean(pacientes_muestra),
             simulaciones = length(confiabilidad))
 
-data_muestreo_resumen_final
+print(data_muestreo_resumen_final, n=50)
+
 
 # Seleccionar "n" de acuerdo a la experiencia o efectos prácticos
 # la mejor combinación de precisión y nivel de confianza
