@@ -12,10 +12,17 @@ centro<-read_excel("centrosalud.xlsx")
 head(centro)
 
 # Prueba de hipótesis acerca de la media de una muestra
-t.test(pesoc,mu=500, alternative = "t", conf.level = 0.95)
+boxplot(centro$pas
+        , col="orange"
+        , ylab="Presión arterial sistólica")
+t.test(centro$pas,pas=140, alternative = "t", conf.level = 0.95)
 
 # Prueba de hipótesis acerca de dos medias 
-t.test(a,b, alternative = "t", var.equal=T, conf.level = 0.95)
+mujeres<-subset(centro, sexo=="femenino")
+hombres<-subset(centro, sexo=="masculino")
+
+
+t.test(mujeres$pas,hombres$pas, alternative = "t", var.equal=T, conf.level = 0.95)
 
 
 # prueba de hipótesis acerca de la varianza de dos muestras
