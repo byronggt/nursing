@@ -6,6 +6,7 @@ if(!require(flextable)){install.packages("flextable")}
 if(!require(tidyverse)){install.packages("tidyverse")}
 if(!require(dplyr)){install.packages("dplyr")}
 if(!require(rempsyc)){install.packages("rempsyc")}
+if(!require(ggstatsplot)){install.packages("ggstatsplot")}
 
 # Abrir la tabla de datos "centrosalud" -----
 centro<-read_excel("centrosalud.xlsx")
@@ -21,6 +22,22 @@ t.test(centro$pas,pas=140, alternative = "t", conf.level = 0.95)
 mujeres<-subset(centro, sexo=="femenino")
 hombres<-subset(centro, sexo=="masculino")
 
+boxplot(centro$pas~centro$sexo, col="orange",
+        xlab="Sexo",
+        ylab="Presión arterial sistólica")
+
+# Se asume que las varianzas son iguales
+# Usar el comando `ggbetweenstats()` para visualizar los datos
+centro1<-centro %>% 
+          select(sexo,pas)
+centro1
+attach(centro1)
+
+ggbetweenstats(centro1, x = sexo, y = pas, 
+               plot.type = "box",
+               type="parametric", var.equal = T)
+
+detach(centro1)
 
 t.test(mujeres$pas,hombres$pas, alternative = "t", var.equal=T, conf.level = 0.95)
 
