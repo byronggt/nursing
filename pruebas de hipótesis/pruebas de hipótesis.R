@@ -6,11 +6,18 @@ if(!require(flextable)){install.packages("flextable")}
 if(!require(tidyverse)){install.packages("tidyverse")}
 if(!require(dplyr)){install.packages("dplyr")}
 if(!require(rempsyc)){install.packages("rempsyc")}
+if(!require(ggplot2)){install.packages("ggplot2")}
 if(!require(ggstatsplot)){install.packages("ggstatsplot")}
 
 # Abrir la tabla de datos "centrosalud" -----
 centro<-read_excel("centrosalud.xlsx")
 head(centro)
+
+# Gráfico de puntos
+windows(10,10)
+ggplot(centro, aes(pas)) +
+  geom_dotplot(aes(fill=sexo)) +
+  labs(x = "Presión arterial sistólica", y = "")
 
 # Prueba de hipótesis acerca de la media de una muestra
 boxplot(centro$pas
@@ -43,7 +50,7 @@ t.test(mujeres$pas,hombres$pas, alternative = "t", var.equal=T, conf.level = 0.9
 
 
 # prueba de hipótesis acerca de la varianza de dos muestras
-
+var.test(hombres$pas,mujeres$pas)
 
 
 
