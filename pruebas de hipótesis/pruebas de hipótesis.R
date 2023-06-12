@@ -10,3 +10,17 @@ if(!require(rempsyc)){install.packages("rempsyc")}
 # Abrir la tabla de datos "centrosalud" -----
 centro<-read_excel("centrosalud.xlsx")
 head(centro)
+
+# Prueba de hipótesis acerca de la media de una muestra
+
+
+# Prueba de hipótesis acerca de dos medias 
+
+
+# prueba de hipótesis acerca de la varianza de dos muestras
+
+
+
+
+
+
