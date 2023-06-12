@@ -12,12 +12,14 @@ centro<-read_excel("centrosalud.xlsx")
 head(centro)
 
 # Prueba de hipótesis acerca de la media de una muestra
-
+t.test(pesoc,mu=500, alternative = "t", conf.level = 0.95)
 
 # Prueba de hipótesis acerca de dos medias 
+t.test(a,b, alternative = "t", var.equal=T, conf.level = 0.95)
 
 
 # prueba de hipótesis acerca de la varianza de dos muestras
+
 
 
 
