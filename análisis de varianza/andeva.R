@@ -2,11 +2,9 @@
 # http://www.byrong.tk 
 
 if(!require(readxl)){install.packages("readxl")}
-if(!require(flextable)){install.packages("flextable")}
 if(!require(tidyverse)){install.packages("tidyverse")}
 if(!require(dplyr)){install.packages("dplyr")}
 if(!require(performance)){install.packages("performance")}
-if(!require(ggplot2)){install.packages("ggplot2")}
 if(!require(ggstatsplot)){install.packages("ggstatsplot")}
 if(!require(agricolae)){install.packages("agricolae")}
 
