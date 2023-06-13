@@ -4,41 +4,45 @@
 
 if(!require(RcmdrMisc)){install.packages("RcmdrMisc")}
 if(!require(readxl)){install.packages("readxl")}
+if(!require(agricolae)){install.packages("agricolae")}
 
-# La dimensión de una pieza se distribuye de manera normal con
-# media=82 mm y desviación estándar=0.5
+# Entre los diabéticos, a la glucemia en ayunas puede suponerse
+# una distribución normal con media de 106 mg/100 mL 
+# y desviación estándar de 8 mg/100 mL
 
-# 1. Calcule el porcentaje de piezas que cumple con las especificaciones 82+-1
-# es decir 81 a 83 -----
+# 1. ¿Qué porcentaje de diabéticos tendrá niveles 
+# entre 90 y 120 mg/100 mL? 
 
-P83<- pnorm(c(83), mean(82), sd=0.5, lower.tail=T)
-P81<-pnorm(81,82,0.5)
-P81a83<-P83-P81; P81a83
+P120<- pnorm(c(120), mean(106), sd=8, lower.tail=T)
+P90<-pnorm(90,106,8)
+P90a120<-P120-P90; P90a120
 
 # 2. Gráfica de la distribución de probabilidad -----
 
-.x<-seq(80.355, 83.645, length.out=1000)
-plot.new()
-dev.new(10,10)
-plotDistr(.x, dnorm(.x,82,0.5), cdf=F, 
-          xlab="dimensión de la pieza",
+.x<-seq(82, 130, length.out=1000)
+windows(10,10)
+plotDistr(.x, dnorm(.x,106,8), cdf=F, 
+          xlab="Glucemia en ayunas",
           ylab="Densidad",
           main="Distribución normal",
-          regions=list(c(81,83)), col="red",
+          regions=list(c(90,120)), col="red",
           legend.pos = "topleft", cex=0.1          
 )
-# 3. Probabilidad de que las piezas presenten más de 83.5 mm -----
-Pmas835<-pnorm(83.5,82,0.5, lower.tail = F);Pmas835
+# 3. Calcular P(106 ≤ X ≤ 110)
+P110<- pnorm(c(110), mean(106), sd=8, lower.tail=T)
+P106<-pnorm(106,106,8)
+P106a110<-P110-P106; P106a110
+
 
 # 4. Gráfica de la distribución de probabilidad
-.x1<-seq(80.355, 83.645, length.out=1000)
+.x1<-seq(82, 130, length.out=1000)
 plot.new()
 dev.new(10,10)
-plotDistr(.x1, dnorm(.x1,82,0.5), cdf=F, 
-          xlab="dimensión de la pieza",
+plotDistr(.x1, dnorm(.x1,106,8), cdf=F, 
+          xlab="Glucemia en ayunas",
           ylab="Densidad",
           main="Distribución normal",
-          regions=list(c(83.5,+Inf)), col="red",
+          regions=list(c(106,110)), col="red",
           legend.pos = "topleft", cex=0.1          
 )
 
@@ -69,20 +73,45 @@ normal_area <- function(mean = 0, sd = 1, lb, ub, acolor = "lightgray", ...) {
   lines(x, dnorm(x, mean, sd), type = "l", ...)
 }
 
-# Área entre 81 a 83
-normal_area(mean = 82, sd = 0.5, lb = 81, ub = 83, lwd = 2, acolor = "red")
-text(82, 0.25, "81 a 83")
+# Área entre 106 a 110
+normal_area(mean = 106, sd = 8, lb = 106, ub = 110, lwd = 2, acolor = "red")
+text(82, 0.25, "106 a 110")
 
 ## Verificar el ajuste de la distribución normal de probabilidad
-sacarosa<-read_excel("sacarosa.xlsx")
-head(sacarosa)
-sac1<-subset(sacarosa, muestra=="Lodo") 
-head(sac1)  
+## para pas en mujeres
+
+centro<-read_excel("centrosalud.xlsx")
+head(centro)
+centro1<-subset(centro, sexo=="femenino") 
+head(centro1)  
 # Gráfico de cuantil-cuantil
-qqnorm(sac1$ph)
-qqline(sac1$ph)
-qqPlot(sac1$ph, xlab = "Cuantiles teóricos", ylab = "Cuantiles observados")
+qqnorm(centro1$pas)
+qqline(centro1$pas)
+qqPlot(centro1$pas, xlab = "Cuantiles teóricos", ylab = "Cuantiles observados")
+
+h1<- graph.freq(centro1$pas, col="blue", frequency =3 , main="Densidad normal", density=4)
+normal.freq(h1, col="red", lty=4,lwd=2, frequency=3)
+dens1<-density(centro1$pas)
+plot(dens1)
 
 # Prueba de Shapiro & Wilk
-shapiro.test(sac1$ph)
+shapiro.test(centro1$pas)
+
+## Verificar el ajuste de la distribución normal de probabilidad
+## para pas en hombres
+
+centro2<-subset(centro, sexo=="masculino") 
+head(centro2)  
+# Gráfico de cuantil-cuantil
+qqnorm(centro2$pas)
+qqline(centro2$pas)
+qqPlot(centro2$pas, xlab = "Cuantiles teóricos", ylab = "Cuantiles observados")
+
+h2<- graph.freq(centro2$pas, col="blue", frequency =3 , main="Densidad normal", density=4)
+normal.freq(h2, col="red", lty=4,lwd=2, frequency=3)
+dens2<-density(centro2$pas)
+plot(dens2)
+
+# Prueba de Shapiro & Wilk
+shapiro.test(centro2$pas)
 
