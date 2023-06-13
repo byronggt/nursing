@@ -118,6 +118,6 @@ pois_sum <- function(lambda, lb, ub, col = 4, lwd = 1, ...) {
 
 # Gráfico de probabilidad cuando hay 3 a 7 accidentes
 pois_sum(lambda = 5, lb = 2, ub = 7, lwd = 2,
-         ylab = "P(X = x)", xlab = "Número de granos quebrados")
+         ylab = "P(X = x)", xlab = "Número de accidentes")
 
 
