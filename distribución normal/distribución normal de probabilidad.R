@@ -84,6 +84,7 @@ centro<-read_excel("centrosalud.xlsx")
 head(centro)
 centro1<-subset(centro, sexo=="femenino") 
 head(centro1)  
+
 # Gráfico de cuantil-cuantil
 qqnorm(centro1$pas)
 qqline(centro1$pas)
@@ -102,6 +103,7 @@ shapiro.test(centro1$pas)
 
 centro2<-subset(centro, sexo=="masculino") 
 head(centro2)  
+
 # Gráfico de cuantil-cuantil
 qqnorm(centro2$pas)
 qqline(centro2$pas)
