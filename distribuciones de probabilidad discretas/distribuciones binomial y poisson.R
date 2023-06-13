@@ -7,7 +7,7 @@
 # de 25 personas
 # Calcular las siguientes probabilidades
 
-# 1. Valores de la distribución binomial para n=250 p=0.1 q=0.9
+# 1. Valores de la distribución binomial para n=25 p=0.1 q=0.9
 tabla.p=data.frame(Probability=dbinom(0:25, size=25, prob=0.10))
 rownames(tabla.p) <- 0:25 
 print(tabla.p)
