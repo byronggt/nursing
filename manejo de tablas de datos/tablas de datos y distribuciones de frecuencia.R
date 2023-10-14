@@ -11,7 +11,7 @@ if(!require(tidyverse)){install.packages("tidyverse")}
 if(!require(explore)){install.packages("explore")}
 if(!require(dplyr)){install.packages("dplyr")}
 
-# Abrir la tabla de datos "centrosalud" -----
+# Abrir la tabla de datos "centrosalud" ------
 centro<-read_excel("centrosalud.xlsx")
 head(centro)
 introduce(centro)
