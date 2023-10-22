@@ -30,7 +30,7 @@ centro$pas_cat
 t2<-table(centro$pas_cat,centro$sexo); t2
 
 ## Ingresar una tabla de contingencia ------
-t4<-table(centro$estcivil,centro$sexo);t3
+t3<-table(centro$estcivil,centro$sexo);t3
 
 # Crear los vectores con los datos de frecuencia
 est_civl <- c("Casado/pareja", "Separado", "Soltero", "Viudo")
