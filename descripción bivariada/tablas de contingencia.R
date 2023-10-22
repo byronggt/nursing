@@ -97,3 +97,8 @@ oddsratio(odd1)
 # El valor de midp.exact de 0.001688 significa que hay significancia
 # en la diferencia de probabilidad de desarrollar diabetes al
 # comparar hombres y mujeres
+
+# Resolución con epitools
+oddsratio(odd1)
+
+
