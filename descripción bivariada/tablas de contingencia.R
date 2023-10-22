@@ -66,16 +66,30 @@ odd1<-table(centro$sexo,centro$diabm); odd1
 # La proporción de mujeres es mayor en los diabéticos
 prop.table(odd1,2)
 
+# Calcular los odd para hombres y mujeres
+
+# Odd para mujeres:
+odd.f<-68/112 ; odd.f
+
+# Odd para masculino:
+odd.m<-16/69 ; odd.m
+
+# Odd ratio
+odd.2<-odd.m/odd.f ; odd.2
+
 
 # Chi cuadrado y odds ratio
 # Ho: la diabetes es independiente del sexo
 # Ha: la diabetes no es independiente del sexo
+
 chisq.test(odd1)
 epi.2by2(odd1)
 
-oddsratio(odd1) # Revisar la interpretación
+oddsratio(odd1) 
+
+# Interpretación:
 # Considerar el odd ratio de 0.38. Significa que
-# La probabilidad de que una persona tenga diabetes es del
+# La probabilidad de que una persona tenga diabetes es de
 # 0.38 cuando es mujer, en comparación si es hombre
 # También: la probabilidad de que una persona no tenga diabetes
 # se reduce en 0.62 cuando es mujer
