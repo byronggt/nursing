@@ -1,5 +1,4 @@
 # Dr. Byron González
-# Dr. Ezequiel López 
 # http://www.byrong.tk 
 
 if(!require(readxl)){install.packages("readxl")}
