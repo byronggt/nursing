@@ -104,6 +104,7 @@ for (conf in seq(0.80, 0.95, by = 0.05)){
   }
 }
 head(data_muestreo)
+tail(data_muestreo)
 
 data_muestreo_resumen_final <-
   data_muestreo %>% 
@@ -112,7 +113,8 @@ data_muestreo_resumen_final <-
             pacientes_muestra = mean(pacientes_muestra),
             simulaciones = length(confiabilidad))
 
-print(data_muestreo_resumen_final, n=50)
+data_muestreo_resumen_final %>% 
+  print(max=1000)
 
 
 # Seleccionar "n" de acuerdo a la experiencia o efectos prácticos
