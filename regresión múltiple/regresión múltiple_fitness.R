@@ -63,25 +63,39 @@ names(fitn)
 # Verificar que en el nuevo modelo los VIF sean inferiores a 10
 ols_vif_tol(model3)
 
+# Graficar los residuos parciales con cada variable independiente
+crPlots(model3)
+
+# Eliminar la variable freqmaxcorrer
+model4 <- lm(oxigeno ~ edad+tiempocorrer+freqcorrer, data = fitn)
+summary(model4)
+
+
+# Revisar VIF para cada variable independiente
+ols_vif_tol(model4) # Valores superiores a 5 o cercanos a 10 son problema
+ols_step_forward_p(model4, details = TRUE)
+
+
+
 # Recalcular el modelo
-ols_regress(model3)
+ols_regress(model4)
 
 ## Verificar el cumplimiento de los supuestos
 # Gráficos de residuos vs predichos
-ols_plot_resid_fit(model3)
+ols_plot_resid_fit(model4)
 
 # QQ Plot de residuos
-ols_plot_resid_qq(model3)
+ols_plot_resid_qq(model4)
 
 # Prueba de normalidad para los residuos
-ols_test_normality(model3)
+ols_test_normality(model4)
 
 # Histograma de los residuos
-ols_plot_resid_hist(model3)
+ols_plot_resid_hist(model4)
 
 # Prueba de homogeneidad de varianzas de los residuos
 # Breusch-Pagan
-ols_test_breusch_pagan(model3)
+ols_test_breusch_pagan(model4)
 
 #########
 
